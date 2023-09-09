@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <!-- Basic -->
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <!-- Mobile Metas -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <!-- Site Metas -->
+  <meta name="author" content="Gopal" />
+  <link rel="shortcut icon" href="images/plant.png" type="image/x-icon">
+
+  <title>IoT Smart Agriculture</title>
+
+  <!-- bootstrap core css -->
+  <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
+  <!-- slider stylesheet -->
+  <link rel="stylesheet" type="text/css"
+    href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
+  <!-- Custom styles for this template -->
+  <link href="css/style.css" rel="stylesheet" />
+  <!-- responsive style -->
+  <link href="css/responsive.css" rel="stylesheet" />
+  <style>
+    @import url("https://fonts.googleapis.com/css?family=Lato:400,700");
+
+    form {
+      width: 350px;
+      position: relative;
+    }
+
+    form .form-field {
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+      justify-content: space-between;
+      -webkit-box-align: center;
+      -ms-flex-align: center;
+      align-items: center;
+      margin-bottom: 1rem;
+      position: relative;
+    }
+
+    form input {
+      font-family: inherit;
+      width: 100%;
+      outline: none;
+      background-color: #fff;
+      border-radius: 4px;
+      border: none;
+      display: block;
+      padding: 0.9rem 0.7rem;
+      box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.16);
+      font-size: 17px;
+      color: #4A4A4A;
+      text-indent: 40px;
+    }
+
+    form .btn {
+      outline: none;
+      border: none;
+      cursor: pointer;
+      display: inline-block;
+      margin: 0 auto;
+      padding: 0.9rem 2.5rem;
+      text-align: center;
+      background-color: #47AB11;
+      color: #fff;
+      border-radius: 4px;
+      box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.16);
+      font-size: 17px;
+    }
+  </style>
+</head>
+
+<body class="sub_page">
+  <div class="hero_area">
+    <!-- header section strats -->
+
+    <header class="header_section">
+      <div class="container-fluid">
+        <nav class="navbar navbar-expand-lg custom_nav-container">
+          <a class="navbar-brand" href="index.html">
+            <span>
+              IoT Smart Agriculture
+            </span>
+          </a>
+          <div class="" id="">
+
+            <div class="custom_menu-btn">
+              <button onclick="openNav()">
+                <span class="s-1"> </span>
+                <span class="s-2"> </span>
+                <span class="s-3"> </span>
+              </button>
+            </div>
+            <div id="myNav" class="overlay">
+              <div class="overlay-content">
+                <a href="index.html">Home</a>
+                <a href="about.html">About</a>
+
+                <a href="contact.html">Contact</a>
+                <a href="login.html">Login</a>
+              </div>
+            </div>
+          </div>
+        </nav>
+      </div>
+    </header>
+
+    <section class="about_section layout_padding">
+      <div class="container">
+        <div class="center">
+          <div class="form_container">
+            <form function='login' id="login-form">
+              <div class="form-field">
+                <input type="email" placeholder="Email / Username" required id="email_id" />
+              </div>
+
+              <div class="form-field">
+                <input type="password" placeholder="Password" required id="password_id"  />
+              </div>
+              <div class="col-12">
+                <div class="btn-box">
+                  <button type="submit" class="btn-5" id="login_btn" name="login" value="Login">Login</button>
+                </div>
+              </div>
+            </form>
+
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="info_section  layout_padding2">
+      <div class="info_container ">
+        <div class="container">
+          <div class="row">
+          </div>
+        </div>
+      </div>
+    </section>
+    <script src="js/custom.js"></script>
+    <!-- Google Map -->
+    <script type="module">
+      import { initializeApp, } from "https://www.gstatic.com/firebasejs/9.6.8/firebase-app.js";
+      import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.6.8/firebase-analytics.js";
+      import { getDatabase } from "https://www.gstatic.com/firebasejs/9.6.8/firebase-database.js"
+
+      import { getAuth, signInWithEmailAndPassword,createUserWithEmailAndPassword} from "https://cdnjs.cloudflare.com/ajax/libs/firebase/9.6.8/firebase-auth.min.js";
+      const firebaseConfig = {
+    apiKey: "AIzaSyBF7z9l-7hbe4F7wtulKS9RlCcS8JECZsI",
+  authDomain: "final-32493.firebaseapp.com",
+  databaseURL: "https://final-32493-default-rtdb.firebaseio.com",
+  projectId: "final-32493",
+  storageBucket: "final-32493.appspot.com",
+  messagingSenderId: "818461015027",
+  appId: "1:818461015027:web:8033ad40f4abb9366e7086",
+  measurementId: "G-H08EE1TER7"
+  };
+
+      const app = await initializeApp(firebaseConfig);
+      const db = await getDatabase(app)
+      console.log(db);
+
+      const analytics = getAnalytics(app);
+      const auth = getAuth();
+      const loginForm = document.querySelector("#login-form")
+
+      loginForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        var email = document.getElementById("email_id").value;
+        var password = document.getElementById("password_id").value;
+        signInWithEmailAndPassword(auth, email, password)
+          .then((userCredential) => {
+            // Signed in 
+            const user = userCredential.user;
+            window.location.href = "/main_activity.html"
+            alert('welcome');
+            // ...  
+          })
+          .catch((error) => {
+
+            const errorCode = error.code;
+            const errorMessage = error.message;
+
+            alert(errorMessage);
+          });
+      });
+
+    </script>
+
+</body>
+
+</html>
